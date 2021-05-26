@@ -8,7 +8,6 @@ class FooterComponent extends Component {
 
         }
     }
-
     render() {
         return (
             <div>

@@ -20,7 +20,6 @@ class AllHotBoardComponent extends Component {
     componentDidMount() {
         BoardService.getAllHotBoard().then((res) => {
             this.setState({
-
                 boards: res.data
 
             });
@@ -48,7 +47,6 @@ class AllHotBoardComponent extends Component {
                 boards: res.data.list
             });
         });
-        //this.props.history.push(`?p_num=${p_num}`);
     }
 
     returnDate(board_date) {
@@ -64,9 +62,6 @@ class AllHotBoardComponent extends Component {
                 </div>
         )
     }
-
- 
-
     handleSearchChange = (event) => {
         this.setState({ search: event.target.value });
     }
@@ -78,7 +73,6 @@ class AllHotBoardComponent extends Component {
         this.setState({ search: '' });
 
     }
-
 
     getHotBoard() {
         BoardService.getHotBoard().then((res) => {
@@ -125,83 +119,59 @@ class AllHotBoardComponent extends Component {
 
         return (
             <div>
-
-
-
                 <div>
-                    <h2 className="text-center"  >Hot 게시물
-                    
-                      
-                    </h2>
-
-
-
+                    <h2 className="text-center"  >Hot 게시물</h2>
                 </div>
 
-                {/* 글작성, 게시물 div*/}
+               
 
                 <div class="container-fluid" >
-                <div >
-                    <button className="main-btn" onClick={this.createBoard}>글 작성</button>
+                    <div>
+                        <button className="main-btn" onClick={this.createBoard}>글 작성</button>
                     </div>
                     <div class="row">
-                        <div class="col-lg-9">
-                        <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />
-                                        {
-                                            this.state.boards.map(
-                                                board =>
-                                                <div >
+                        <div class="col-lg-9">{/*글 목록*/}
+                            <hr style={{ width: "100%", border: "1px solid #bad1e6" }} />
+                                {this.state.boards.map(
+                                    board =>
+                                        <div >
+                                            <div key={board.board_no} style={{ padding: "5px", borderRadius:"10px"}}>
+                                                <div><a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a><br />
+                                                </div>
+                                                <div style={{ display: "inline-block", width: "800px", textOverflow: "ellipsis",whiteSpace: "nowrap", overflow: "hidden" }}>
+                                                        {board.question} 
+                                                </div> 
+                                                <div style={{ left: "5%" ,display: "inline"}}>
+                                                    {this.returnDate(board.board_date)}
+                                                    &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;
+                                                    {board.id}
+                                                </div>
+                                                <div style={{display: "inline",position: "absolute",  right: "5%" }}>
+                                                    <img src={heart} style={{width:"20px", height:"20px", marginBottom:"3px"}}   alt='heart' ></img>{board.board_like} 🗨️{board.commentcount}                                                              
+                                                </div>                                                        
+                                                <hr style={{ width: "100%", border: "1px solid #bad1e6"}} />
+                                            </div>
                                                         
-                                                    <div key={board.board_no} style={{ padding: "5px", borderRadius:"10px"}}>
+                                        </div>
+                                )}
+                        </div>{/*글목록 div*/}
 
-                                                            <div><a onClick={() => this.readBoard(board.board_no)}><h5>{board.title}</h5></a><br />
-                                                            </div>
-                                                            <div style={{ display: "inline-block", width: "800px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
-                                                            {board.question} 
-                                                            </div> 
-                                                            <div style={{ left: "5%" ,display: "inline"}}>
-                                                            {this.returnDate(board.board_date)}
-                                                            &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;
-                                                            {board.id}
-                                                            </div>
-                                                            <div style={{display: "inline",position: "absolute",  right: "5%" }}>
-                                                            <img src={heart} style={{width:"20px", height:"20px", marginBottom:"3px"}}alt='heart' ></img>{board.board_like} 🗨️{board.commentcount}                                                              
-                </div>
-                                                            
-                                                            <hr style={{ width: "100%", border: "1px solid #bad1e6"}} />
-                                                    </div>
-                                                    
-                                               </div>   
-                                            )
-                                        }
-                                 
-                            
-                            
-                        </div>{/* 글작성, 게시물 div*/}
-
-
-
-
-
-                        <div class="col-lg-3">
-                            <div >{/* 검색, 태그 div*/}
+                        <div class="col-lg-3">{/*검색,인기,hot*/}
+                            <div >{/* 검색 div*/}
                                 <table>
                                     <tr>
-
                                         <td>
                                             <input type="text" placeholder="검색하기"
                                                 name="search" value={this.state.search}
                                                 className="form-control" onChange={this.handleSearchChange} />
                                         </td>
                                         <td><button className="btn btn-outline-secondary btn-search" onClick={() => this.searchKeyWord(this.state.search)}>Search</button></td>
-
-
                                     </tr>
                                 </table>
 
-                                <div >
+                                <div >{/*인기태그,hot div*/}
                                     <div className="single-department-two mt-30">
-                                        <div className="department-content text-center">
+                                        <div className="department-content text-center">{/*인기태그*/}
                                             <h4 className="department-title">
                                                 #인기태그
                                             </h4>
@@ -209,30 +179,26 @@ class AllHotBoardComponent extends Component {
                                                 {this.returnTag()}                                           
                                             </p>   
 
-                                        </div>
-                                        <div className="department-content text-center">
+                                        </div>{/*인기태그*/}
+                                        <div className="department-content text-center">{/*hot div*/}
                                             <h4 className="department-title">
-                                            <a className="hot" onClick={()=>this.AllHotBoard()}>  HOT 게시물   </a>    
+                                                <a className="hot" onClick={()=>this.AllHotBoard()}>  HOT 게시물   </a>    
                                             </h4>
-                                        <table className="table-board">
-                                            <tbody>
-                                                {this.state.hots.map(
-                                                hot =>
-                                                <tr className="tr">
-                                                <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}  <img src={heart} style={{width:"20px", height:"20px", marginBottom:"3px"}}alt='heart' ></img>{hot.board_like} 🗨️ {hot.commentcount}</a>
-                                            </tr>
-                                                )}
-                                            </tbody>
-                                        </table>
-                                        </div>
+                                            <table className="table-board">
+                                                <tbody>
+                                                    {this.state.hots.map(
+                                                    hot =>
+                                                    <tr className="tr">
+                                                    <a className="hot" onClick={()=>this.readBoard(hot.board_no)}>{hot.title}  <img src={heart} style={{width:"20px", height:"20px", marginBottom:"3px"}}alt='heart' ></img>{hot.board_like} 🗨️ {hot.commentcount}</a>
+                                                    </tr>
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>{/*hot div*/}
                                     </div>
-
-                                </div>
-                            </div>{/* 검색, 태그 div*/}
-                        </div>
-
-
-                      
+                                </div>{/*인기태그,hot div*/}
+                            </div>{/* 검색 div*/}
+                        </div>{/*검색,인기,hot*/} 
                     </div>
                 </div>
 
