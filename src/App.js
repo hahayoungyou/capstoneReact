@@ -26,11 +26,7 @@ function App() {
     <div>
       <Router>
         <HeaderComponent />
-        {/* <div style={{float:"right",width:"500px"}}>
-                    <SearchSideComponent ></SearchSideComponent>
-                </div> */}
          <div className="container"  style={{width: "100%"}}>
-        
           <Switch>
           <Route path="/" exact component={LoginComponent} />
             <Route path="/home" exact component={HomeComponent}></Route> {/*나중에 홈 화면 jsx 만들 것 */}
@@ -49,13 +45,8 @@ function App() {
             <Route path="/SearchTagComponent/:tag" component={SearchTagComponent}></Route> {/*성공페이지 */}
             <Route path="/PrivateComponent/:mode" component={PrivateComponent}></Route> {/*성공페이지 */}
           </Switch>
-         
-         
         </div>
-        
-
       </Router>
-      
      <FooterComponent />
     </div>
   );

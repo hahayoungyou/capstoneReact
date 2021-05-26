@@ -46,10 +46,6 @@ class MapComponent extends Component {
 
                 searchPlaces(this.state.category);
                 function searchPlaces(keyword) {
-                    //var keyword=document.getElementById('keyword').value;
-
-                    // this.setState({keyword:document.getElementById('keyword').value})
-
                     ps.keywordSearch(keyword, placesSearchCB);
 
                 }
@@ -58,14 +54,6 @@ class MapComponent extends Component {
                 function placesSearchCB(data, status, pagination) {
                     if (status === kakao.maps.services.Status.OK) {
                         displayPlaces(data);
-
-                        // let bounds = new kakao.maps.LatLngBounds();
-
-                        // for (let i = 0; i < data.length; i++) {
-                        //     displayMarkerKeyWord(data[i]);
-                        //     bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-                        // }
-                        //map.setBounds(bounds);
                     }
                 }
 
@@ -309,9 +297,9 @@ class MapComponent extends Component {
     render() {
         return (
             <div >
-         
-                       
-                 <h2 className="text-center"  >{this.state.category}
+
+
+                <h2 className="text-center"  >{this.state.category}
                     <br></br>
                     <h2 style={{ fontWeight: 'bold', display: "inline" }}><a onClick={() => this.listBoard(this.state.category, 1)}>
                         📃 게시판</a></h2> &nbsp;&nbsp;
@@ -319,13 +307,10 @@ class MapComponent extends Component {
                     <h2 style={{ color: '#FBB9AB', display: "inline", fontWeight: 'bold', textDecorationColor: '#FBB9AB', textDecoration: "underline" }}>🗺 지도 </h2>
                 </h2>
                 <div class="container-fluid">
-                <div class="col-lg-6" id="menu_wrap" style={{ backgroundColor: 'white', margin: '0px', float: "left", width: '400px', height: '600px', overflow: 'scroll' }}>
+                    <div class="col-lg-6" id="menu_wrap" style={{ backgroundColor: 'white', margin: '0px', float: "left", width: '400px', height: '600px', overflow: 'scroll' }}>
                         <div >
                             <div className="form-group">
                                 <form onsubmit="searchPlaces(); return false;">
-                                    {/* 키워드 : <input type="text" value={this.state.category} id="keyword" size="15" onChange={this.SearchKeywordhandler}/>
-                                    <button type="submit" >검색하기</button> */}
-
                                 </form>
                             </div>
                         </div>
@@ -333,21 +318,14 @@ class MapComponent extends Component {
                         <div id="pagination"></div>
                     </div>
                     <div class="col-lg-6" id="MyMap" style={{ width: "800px", height: "600px", float: "right" }}>
-
                     </div>
-               
-                
-                   
                 </div>
-                </div>
-            
+            </div>
+
 
         );
     }
 }
-// const MapComponents = styled.div`
-//   width: 1100px;
-//   height: 600px;
-// `;
+
 
 export default MapComponent;

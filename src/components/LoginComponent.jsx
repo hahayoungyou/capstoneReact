@@ -48,10 +48,7 @@ class LoginComponent extends Component {
     axios
       .post(LOGIN_API_URL, reqBody)
       .then((response) => {
-        // console.log(response.data);
         console.log(response.data.jwt);
-        // var token = JSON.stringify(response.data);
-        // token = token.slice(7, -1);
         ApiService.fetchToken(response.data.jwt);
         localStorage.setItem("user", JSON.stringify(response.data.jwt));
         this.props.history.push("/home");
@@ -60,15 +57,15 @@ class LoginComponent extends Component {
         console.log("error");
         window.alert("아이디나 비밀번호가 다릅니다")
       });
-   
+
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
-  gotoFindIDPW=()=>{
+  gotoFindIDPW = () => {
     return this.props.history.push('/find')
   }
 
-  gotoSignup=()=>{
+  gotoSignup = () => {
     return this.props.history.push('/Signup')
   }
 
@@ -77,47 +74,47 @@ class LoginComponent extends Component {
       <div>
         <h2 className="text-center">Login </h2>
         <form>
-        <div className="about-content mt-40">
-          <div className="about-form">
-           
-            <input
-              type="text"
-              placeholder="username"
-              name="username"
-              style={{ alignContent:"center",width:"600px", marginLeft:"220px", marginBottom:"0px"}}
-              value={this.state.username}
-              onChange={this.onChange}
-            />
+          <div className="about-content mt-40">
+            <div className="about-form">
+
+              <input
+                type="text"
+                placeholder="username"
+                name="username"
+                style={{ alignContent: "center", width: "600px", marginLeft: "220px", marginBottom: "0px" }}
+                value={this.state.username}
+                onChange={this.onChange}
+              />
+            </div>
+            <div className="about-form">
+
+              <input
+                type="password"
+                placeholder="password"
+                name="password"
+                style={{ alignContent: "center", width: "600px", marginLeft: "220px", marginTop: "0px", marginBottom: "0px" }}
+                value={this.state.password}
+                onChange={this.onChange}
+              />
+            </div>
+
           </div>
-          <div className="about-form">
-           
-            <input
-              type="password"
-              placeholder="password"
-              name="password"
-              style={{ alignContent:"center",width:"600px", marginLeft:"220px",marginTop:"0px" , marginBottom:"0px"}}
-              value={this.state.password}
-              onChange={this.onChange}
-            />
+          <div style={{ textAlign: "center" }}>
+            <button className="main-btn" type="submit" style={{ alignContent: "center", width: "600px", marginTop: "0px", marginBottom: "0px" }} onClick={this.userLogin}>
+              Login User
+          </button>
+          </div>
+          <br />
+          <div style={{ textAlign: "center", display: "inline" }} >
+            <p style={{ display: "inline", textAlign: "right", marginLeft: "670px" }} onClick={this.gotoFindIDPW}>
+              ID/PW 찾기 |
+          </p>
+
+            <p style={{ display: "inline", textAlign: "right" }} onClick={this.gotoSignup}>
+              회원가입
+          </p>
           </div>
 
-         </div>
-         <div style={{textAlign:"center" }}>
-         <button  className="main-btn" type="submit"  style={{ alignContent:"center",width:"600px", marginTop:"0px" , marginBottom:"0px"}} onClick={this.userLogin}>
-            Login User
-          </button>
-         </div>
-         <br/>
-          <div style={{ textAlign:"center" , display: "inline" }} >
-          <p  style={{  display: "inline" ,textAlign:"right" , marginLeft:"670px"}} onClick={this.gotoFindIDPW}>
-                ID/PW 찾기 | 
-          </p>
-      
-          <p style={{  display: "inline",textAlign:"right"  }} onClick={this.gotoSignup}>
-                회원가입
-          </p>
-          </div>
-          
 
         </form>
       </div>

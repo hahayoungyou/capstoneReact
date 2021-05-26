@@ -21,7 +21,7 @@ class CreateBoardComponent extends Component {
             tag3: null,
             tag4: null,
             tag5: null,
-            filepath:null
+            filepath: null
         }
 
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -51,7 +51,7 @@ class CreateBoardComponent extends Component {
         this.setState({ board_like: event.target.value });
     }
     changeidHandler = (event) => {
-        this.setState({ id:this.state.id });
+        this.setState({ id: this.state.id });
     }
     changeCategoryHandler = (event) => {
         this.setState({ category: event.target.value });
@@ -72,17 +72,17 @@ class CreateBoardComponent extends Component {
         this.setState({ tag5: event.target.value });
     }
 
-    handleFileInput(e){
-        console.log("selected path:"+ e.target.files[0].name)
+    handleFileInput(e) {
+        console.log("selected path:" + e.target.files[0].name)
         this.setState({
-         filepath: e.target.files[0].name
-      
+            filepath: e.target.files[0].name
+
         })
-      }
-    
+    }
+
     createBoard = (event) => {
         event.preventDefault();
-    
+
         let board = {
             title: this.state.title,
             question: this.state.question,
@@ -97,30 +97,30 @@ class CreateBoardComponent extends Component {
             tag5: this.state.tag5,
             filepath: this.state.filepath
         };
-        if(board.title != null && board.question != null){
+        if (board.title != null && board.question != null) {
             if (this.state.num === '_create') {
                 BoardService.createBoard(board).then(res => {
-                    if(this.state.category != "건의사항" ){
+                    if (this.state.category != "건의사항") {
                         this.props.history.push(`/category-board/${this.state.category}`);
                     }
-                        
-                    else{
+
+                    else {
                         window.alert("소중한 의견 감사합니다.")
                         this.props.history.push('/home');
                     }
-                        
+
                 });
             } else {
                 BoardService.updateBoard(this.state.num, board).then(res => {
-                    if(this.state.category != "건의사항" )
+                    if (this.state.category != "건의사항")
                         this.props.history.push(`/category-board/${this.state.category}`);
                     else
                         this.props.history.push('/home');
                 });
-             
+
             }
-        }else{
-            if(board.title ==null)
+        } else {
+            if (board.title == null)
                 window.alert("제목을 작성해주세요")
             else
                 window.alert("질문을 작성해주세요")
@@ -144,17 +144,17 @@ class CreateBoardComponent extends Component {
 
 
     componentDidMount() {
-        BoardService. getUserName( ).then ((res)=>{
-            console.log("id is "+res.data)
+        BoardService.getUserName().then((res) => {
+            console.log("id is " + res.data)
             this.setState({
                 id: res.data
-                
+
             });
         });
         if (this.state.num === '_create') {
             return
         } else {
-      
+
             BoardService.getOneBoard(this.state.num).then((res) => {
                 let board = res.data;
 
@@ -169,63 +169,62 @@ class CreateBoardComponent extends Component {
                     category: board.category,
                     id: board.id,
                     tag1: board.tag1,
-                    tag2:  board.tag2,
-                    tag3:  board.tag3,
+                    tag2: board.tag2,
+                    tag3: board.tag3,
                     tag4: board.tag4,
-                    tag5:  board.tag5,
+                    tag5: board.tag5,
                     filepath: board.filepath
                 });
             });
         }
     }
 
-   returnTag(){
+    returnTag() {
 
-    if(this.state.category != '홍보게시판' && this.state.category!= '건의사항' && this.state.category != '공지사항')  return(
+        if (this.state.category != '홍보게시판' && this.state.category != '건의사항' && this.state.category != '공지사항') return (
 
-        <div className="form-group">
-        <label> tag</label>
-        <br></br>
-           <table>
-        <tbody>
-            <td>
-            #<input aria-multiline placeholder="tag1추가" name="tag1" className="form-control"
-        value={this.state.tag1} onChange={this.changetag1Handler} />
-            </td>
-            <td>
-            #<input aria-multiline placeholder="tag2추가" name="tag2" className="form-control"
-        value={this.state.tag2} onChange={this.changetag2Handler} />
-            </td>
-            <td>
-            #<input aria-multiline placeholder="tag3추가" name="tag3" className="form-control"
-        value={this.state.tag3} onChange={this.changetag3Handler}/>
-            </td>
-            <td>
-            #<input aria-multiline placeholder="tag4추가" name="tag4" className="form-control"
-        value={this.state.tag4} onChange={this.changetag4Handler}/>
-            </td>
-            <td>
-            #<input aria-multiline placeholder="tag5추가" name="tag5" className="form-control"
-        value={this.state.tag5} onChange={this.changetag5Handler}/>
-            </td>
-        </tbody>
-    </table>
-    </div>)
-    else
-    return(<div> </div>)
-       
-   }
+            <div className="form-group">
+                <label> tag</label>
+                <br></br>
+                <table>
+                    <tbody>
+                        <td>
+                            #<input aria-multiline placeholder="tag1추가" name="tag1" className="form-control"
+                                value={this.state.tag1} onChange={this.changetag1Handler} />
+                        </td>
+                        <td>
+                            #<input aria-multiline placeholder="tag2추가" name="tag2" className="form-control"
+                                value={this.state.tag2} onChange={this.changetag2Handler} />
+                        </td>
+                        <td>
+                            #<input aria-multiline placeholder="tag3추가" name="tag3" className="form-control"
+                                value={this.state.tag3} onChange={this.changetag3Handler} />
+                        </td>
+                        <td>
+                            #<input aria-multiline placeholder="tag4추가" name="tag4" className="form-control"
+                                value={this.state.tag4} onChange={this.changetag4Handler} />
+                        </td>
+                        <td>
+                            #<input aria-multiline placeholder="tag5추가" name="tag5" className="form-control"
+                                value={this.state.tag5} onChange={this.changetag5Handler} />
+                        </td>
+                    </tbody>
+                </table>
+            </div>)
+        else
+            return (<div> </div>)
 
-returnAll(){
-    console.log(this.state.id)
-    if(this.state.id === "admin" )
-{
-    return(<option value="공지사항">공지사항</option>);
-}else{
-    return( <a></a>);
-}
-}
- 
+    }
+
+    returnAll() {
+        console.log(this.state.id)
+        if (this.state.id === "admin") {
+            return (<option value="공지사항">공지사항</option>);
+        } else {
+            return (<a></a>);
+        }
+    }
+
     render() {
         return (
             <div>
@@ -236,7 +235,7 @@ returnAll(){
                             <div className="card-body">
                                 <form>
 
-                                    <div className="form-group" style={{float:"left", marginRight:"10px", width: "30%"}}>
+                                    <div className="form-group" style={{ float: "left", marginRight: "10px", width: "30%" }}>
 
                                         <label> Category </label>
                                         <select placeholder="category" name="category" className="form-control"
@@ -256,35 +255,35 @@ returnAll(){
                                             <option value="홍보게시판">홍보게시판</option>
                                             <option value="건의사항">건의사항</option>
                                             {this.returnAll()}
-                                          
+
                                         </select>
                                     </div>
-                                    <div className="form-group" style={{float:"right", marginLeft:"10px",width: "65%"}}>
+                                    <div className="form-group" style={{ float: "right", marginLeft: "10px", width: "65%" }}>
                                         <label> Title </label>
                                         <input type="text" placeholder="title" name="title" className="form-control" cols="60" rows="8"
-                                            value={this.state.title} onChange={this.changeTitleHandler}  />
+                                            value={this.state.title} onChange={this.changeTitleHandler} />
                                     </div>
 
                                     {/* 파일 추가 */}
-                                   
+
                                     <div id="inputFile">
-                                        <input type="file" name="file"  accept="image/png, image/jpeg, image/jpg" onChange={e => this.handleFileInput(e)}/>  {/* image 1개 전송 */}
-                                    </div> 
-      
-                                    <div className="form-group" style={{clear:"both"}}>
+                                        <input type="file" name="file" accept="image/png, image/jpeg, image/jpg" onChange={e => this.handleFileInput(e)} />  {/* image 1개 전송 */}
+                                    </div>
+
+                                    <div className="form-group" style={{ clear: "both" }}>
                                         <label> Question  </label>
-                                        <textarea style={{height:"200px"}} placeholder="question" name="question" className="form-control"
+                                        <textarea style={{ height: "200px" }} placeholder="question" name="question" className="form-control"
                                             value={this.state.question} onChange={this.changeQuestionHandler} />
                                     </div>
                                     <div className="form-group">
                                         <label> id {this.state.id}</label>
 
                                     </div>
-                                  
-                                       {this.returnTag()}
-                                      
-                                   
-                                       <button className="main-btn" onClick={this.createBoard} >저장</button>
+
+                                    {this.returnTag()}
+
+
+                                    <button className="main-btn" onClick={this.createBoard} >저장</button>
                                     <button className="main-btn-cancle" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>취소</button>
 
                                 </form>

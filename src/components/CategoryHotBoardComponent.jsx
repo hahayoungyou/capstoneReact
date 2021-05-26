@@ -11,7 +11,6 @@ class CategoryHotBoardComponent extends Component {
             hots: [],
             tags:"",
             tag:""
-
         }
         this.createBoard = this.createBoard.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
@@ -199,11 +198,6 @@ getCategoryhot(category){
                             
                             
                         </div>{/* 글작성, 게시물 div*/}
-
-
-
-
-
                         <div class="col-lg-3">
                             <div >{/* 검색, 태그 div*/}
                                 <table>

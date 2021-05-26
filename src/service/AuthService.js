@@ -10,9 +10,6 @@ class AuthService {
       sessionStorage.setItem("credentials", credentials);
       this.authenticated = true;
       console.log(credentials);
-      //if (credentials.toUpperCase() === "ADMIN") {
-        //this.admin = true;
-     // }
       cb();
     }
   
